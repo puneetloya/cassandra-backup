@@ -143,10 +143,24 @@
                         </goals>
                         <configuration>
                             <finalName>${project.artifactId}-${project.version}-final</finalName>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>artifactory-dal10-01-node-07.swg-devops.com-releases</name>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-icm-maven-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>artifactory-dal10-01-node-07.swg-devops.com-snapshots</name>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-icm-maven-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

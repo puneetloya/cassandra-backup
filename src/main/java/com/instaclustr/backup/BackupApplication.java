@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.AbstractScheduledService;
 import com.google.common.util.concurrent.ServiceManager;
 import com.instaclustr.backup.task.BackupTask;
+import com.instaclustr.backup.metrics.Metrics;
 import com.instaclustr.backup.util.GlobalLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class BackupApplication extends Application{
 
         GlobalLock globalLock = new GlobalLock(arguments.sharedContainerPath.toString());
 
+        new Metrics(arguments);
         new BackupTask(arguments, globalLock).call();
     }
 }

@@ -26,6 +26,7 @@ public class AWSSnapshotUploader extends SnapshotUploader {
     private final TransferManager transferManager;
 
     private final Optional<String> kmsId;
+    private final BackupArguments arguments;
 
     public AWSSnapshotUploader(final TransferManager transferManager,
                                final BackupArguments arguments) {
@@ -33,6 +34,7 @@ public class AWSSnapshotUploader extends SnapshotUploader {
 
         this.transferManager = transferManager;
         this.kmsId = Optional.absent();
+        this.arguments = arguments;
     }
 
     static class AWSRemoteObjectReference extends RemoteObjectReference {
@@ -118,6 +120,8 @@ public class AWSSnapshotUploader extends SnapshotUploader {
 
     private void cleanupMultipartUploads() {
         final AmazonS3 s3Client = transferManager.getAmazonS3Client();
+        if (!arguments.endpoint.isEmpty())
+            s3Client.setEndpoint(arguments.endpoint);
 
         final Instant yesterdayInstant = ZonedDateTime.now().minusDays(1).toInstant();
 

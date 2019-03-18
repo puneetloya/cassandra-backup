@@ -67,6 +67,9 @@ public abstract class BaseArguments {
     @Option(name = "--concurrent-connections", usage = "Number of files (or file parts) to upload or download concurrently. Higher values will increase throughput. Default is 10.", metaVar = "count")
     public Integer concurrentConnections = 10;
 
+    @Option(name = "--prometheus-metrics-port", usage = "Prometheus' HTTP Server port.", metaVar = "count")
+    public Integer prometheusMetricsPort = 10;
+
     @Option(name="--wait", usage = "Wait to acquire the global transfer lock (which prevents more than one com.instaclustr.backup or restore from running).")
     public boolean waitForLock;
 
@@ -79,6 +82,9 @@ public abstract class BaseArguments {
 
     @Option(name = "-c", aliases = {"--cluster"}, metaVar = "cluster ID", usage = "Parent cluster of node to restore from.", required = true)
     public String clusterId;
+
+    @Option(name = "-e", aliases = {"--endpoint"}, metaVar = "S3 Endpoint", usage = "Override S3 service endpoint")
+    public String endpoint;
 
     public void setParser(CmdLineParser parser) {
         this.parser = parser;
@@ -111,6 +117,8 @@ public abstract class BaseArguments {
     public void setClusterId(String clusterId) {
         this.clusterId = clusterId;
     }
+
+    public void setEndpoint(String endpoint) { this.endpoint = endpoint; }
 
     public void setCassandraDirectory(@Nullable Path cassandraDirectory) {
         this.cassandraDirectory = cassandraDirectory;

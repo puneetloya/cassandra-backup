@@ -110,6 +110,24 @@
             <version>1.7.16</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_hotspot</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_httpserver</artifactId>
+            <version>0.6.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

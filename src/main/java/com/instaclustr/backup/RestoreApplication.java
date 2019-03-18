@@ -1,5 +1,6 @@
 package com.instaclustr.backup;
 
+import com.instaclustr.backup.metrics.Metrics;
 import com.instaclustr.backup.task.RestoreTask;
 import com.instaclustr.backup.util.GlobalLock;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ public class RestoreApplication {
 
         try {
             GlobalLock globalLock = new GlobalLock(arguments.sharedContainerPath.toString());
+            new Metrics(arguments);
             new RestoreTask(
                     globalLock,
                     arguments

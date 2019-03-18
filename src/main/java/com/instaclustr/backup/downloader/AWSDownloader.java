@@ -30,6 +30,8 @@ public class AWSDownloader extends Downloader {
     public AWSDownloader(final TransferManager transferManager, final RestoreArguments arguments) {
         super(arguments);
         this.amazonS3 = transferManager.getAmazonS3Client();
+        if (!arguments.endpoint.isEmpty())
+            amazonS3.setEndpoint(arguments.endpoint);
         this.transferManager = transferManager;
     }
 

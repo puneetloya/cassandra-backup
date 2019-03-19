@@ -4,9 +4,7 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.google.common.base.Optional;
 import com.instaclustr.backup.BackupArguments;
-import com.instaclustr.backup.CommonBackupArguments;
 import com.instaclustr.backup.RestoreArguments;
 import com.instaclustr.backup.downloader.*;
 import com.instaclustr.backup.uploader.*;
@@ -15,8 +13,6 @@ import com.microsoft.azure.storage.blob.CloudBlobClient;
 
 import javax.naming.ConfigurationException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CloudDownloadUploadFactory {
 
@@ -57,6 +53,9 @@ public class CloudDownloadUploadFactory {
                 //TODO: support encrypted backups via KMS
                 //AWS client set to auto detect credentials
                 return new AWSSnapshotUploader(getTransferManager(), arguments);
+            case IBM_COS:
+                //AWS client set to auto detect credentials
+                return new IBMSnapshotUploader(arguments);
             case AZURE_BLOB:
                 //TODO: use SAS token?
                 return new AzureSnapshotUploader(getCloudBlobClient(), arguments);
@@ -75,6 +74,8 @@ public class CloudDownloadUploadFactory {
                 //TODO: support encrypted backups via KMS
                 //AWS client set to auto detect credentials
                 return new AWSDownloader(getTransferManager(), arguments);
+            case IBM_COS:
+                return new IBMDownloader(arguments);
             case AZURE_BLOB:
                 //TODO: use SAS token?
                 return new AzureDownloader(getCloudBlobClient(), arguments);

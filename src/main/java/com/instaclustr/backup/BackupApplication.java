@@ -23,5 +23,7 @@ public class BackupApplication extends Application{
 
         new Metrics(arguments);
         new BackupTask(arguments, globalLock).call();
+        logger.info("Backup completed successfully.");
+        System.exit(0);
     }
 }

@@ -67,8 +67,8 @@ public abstract class BaseArguments {
     @Option(name = "--concurrent-connections", usage = "Number of files (or file parts) to upload or download concurrently. Higher values will increase throughput. Default is 10.", metaVar = "count")
     public Integer concurrentConnections = 10;
 
-    @Option(name = "--prometheus-metrics-port", usage = "Prometheus' HTTP Server port.", metaVar = "count")
-    public Integer prometheusMetricsPort = 10;
+    @Option(name = "--prometheus-metrics-port", usage = "Prometheus' HTTP Server port.", metaVar = "Metrics Port")
+    public Integer prometheusMetricsPort = 8091;
 
     @Option(name="--wait", usage = "Wait to acquire the global transfer lock (which prevents more than one com.instaclustr.backup or restore from running).")
     public boolean waitForLock;

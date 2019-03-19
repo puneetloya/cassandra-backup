@@ -101,5 +101,6 @@ public class IBMDownloader extends Downloader {
     @Override
     void cleanup() throws Exception {
         // Nothing to cleanup
+        amazonS3.shutdown();
     }
 }

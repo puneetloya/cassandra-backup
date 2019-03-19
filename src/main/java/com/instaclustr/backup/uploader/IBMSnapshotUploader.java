@@ -117,6 +117,7 @@ public class IBMSnapshotUploader extends SnapshotUploader {
         } catch (Exception e) {
             logger.warn("Failed to cleanup multipart uploads.", e);
         }
+        amazonS3.shutdown();
     }
 
     private void cleanupMultipartUploads() {

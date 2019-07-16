@@ -59,7 +59,8 @@ public class IBMSnapshotUploader extends SnapshotUploader {
         final String canonicalPath = ((AWSRemoteObjectReference) object).canonicalPath;
 
         final CopyObjectRequest copyRequest = new CopyObjectRequest(restoreFromBackupBucket, canonicalPath, restoreFromBackupBucket, canonicalPath)
-                .withStorageClass(System.getenv("AWS_REGION") + "-standard");
+                .withStorageClass(System.getenv("AWS_REGION") + "-standard")
+                .withMetadataDirective("REPLACE");
 
         if (kmsId.isPresent()) {
             final SSEAwsKeyManagementParams params = new SSEAwsKeyManagementParams(kmsId.get());

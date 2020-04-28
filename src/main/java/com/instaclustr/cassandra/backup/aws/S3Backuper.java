@@ -71,7 +71,9 @@ public class S3Backuper extends Backuper {
         final CopyObjectRequest copyRequest = new CopyObjectRequest(request.storageLocation.bucket,
                                                                     canonicalPath,
                                                                     request.storageLocation.bucket,
-                                                                    canonicalPath).withStorageClass(StorageClass.Standard);
+                                                                    canonicalPath)
+                                                                    .withStorageClass(StorageClass.Standard)
+                                                                    .withMetadataDirective("REPLACE");
 
         try {
             // attempt to refresh existing object in the bucket via an inplace copy

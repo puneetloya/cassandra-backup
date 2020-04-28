@@ -80,48 +80,49 @@ public class S3Module extends AbstractModule {
             }
 
             // if we are not running against Kubernetes, credentials should be fetched from ~/.aws/...
-            if (isRunningInKubernetes()) {
-                // it is possible that we have not set any secrets for s3 so the last
-                // resort is to fallback to AWS instance credentials.
-                if (s3Conf.awsAccessKeyId != null && s3Conf.awsSecretKey != null) {
-                    builder.setCredentials(new AWSCredentialsProvider() {
-                        @Override
-                        public AWSCredentials getCredentials() {
-                            return new AWSCredentials() {
-                                @Override
-                                public String getAWSAccessKeyId() {
-                                    return s3Conf.awsAccessKeyId;
-                                }
-
-                                @Override
-                                public String getAWSSecretKey() {
-                                    return s3Conf.awsSecretKey;
-                                }
-                            };
-                        }
-
-                        @Override
-                        public void refresh() {
-                        }
-                    });
-                }
-            }
+            // if (isRunningInKubernetes()) {
+            //     // it is possible that we have not set any secrets for s3 so the last
+            //     // resort is to fallback to AWS instance credentials.
+            //     if (s3Conf.awsAccessKeyId != null && s3Conf.awsSecretKey != null) {
+            //         builder.setCredentials(new AWSCredentialsProvider() {
+            //             @Override
+            //             public AWSCredentials getCredentials() {
+            //                 return new AWSCredentials() {
+            //                     @Override
+            //                     public String getAWSAccessKeyId() {
+            //                         return s3Conf.awsAccessKeyId;
+            //                     }
+            //
+            //                     @Override
+            //                     public String getAWSSecretKey() {
+            //                         return s3Conf.awsSecretKey;
+            //                     }
+            //                 };
+            //             }
+            //
+            //             @Override
+            //             public void refresh() {
+            //             }
+            //         });
+            //     }
+            // }
 
             return builder.build();
         }
 
         private S3Configuration resolveS3Configuration(final Provider<CoreV1Api> coreV1ApiProvider, final KubernetesAwareRequest operationRequest) {
-            if (isRunningInKubernetes()) {
-                try {
-                    return resolveS3ConfigurationFromK8S(coreV1ApiProvider, operationRequest);
-                } catch (final S3ModuleException ex) {
-                    logger.warn(String.format("Unable to resolve credentials for S3 from Kubernetes secret %s. The last chance "
-                                                  + "for this container to authenticate is to use AWS instance credentials."), ex);
-                    return new S3Configuration();
-                }
-            } else {
-                return resolveS3ConfigurationFromEnvProperties();
-            }
+            // if (isRunningInKubernetes()) {
+            //     try {
+            //         return resolveS3ConfigurationFromK8S(coreV1ApiProvider, operationRequest);
+            //     } catch (final S3ModuleException ex) {
+            //         logger.warn(String.format("Unable to resolve credentials for S3 from Kubernetes secret %s. The last chance "
+            //                                       + "for this container to authenticate is to use AWS instance credentials."), ex);
+            //         return new S3Configuration();
+            //     }
+            // } else {
+            //     return resolveS3ConfigurationFromEnvProperties();
+            // }
+            return resolveS3ConfigurationFromEnvProperties();
         }
 
         private S3Configuration resolveS3ConfigurationFromK8S(final Provider<CoreV1Api> coreV1ApiProvider, final KubernetesAwareRequest operationRequest) {
